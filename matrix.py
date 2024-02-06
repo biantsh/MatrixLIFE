@@ -5,36 +5,36 @@ from typing import Any, Sequence
 
 class Matrix:
     def __init__(self, values: Sequence[Sequence]) -> None:
-        self.matrix = [[value for value in row] for row in values]
+        self.matrix = [list(row) for row in values]
         self.num_rows = len(values)
         self.num_cols = len(values[0])
 
     def __add__(self, other: Matrix) -> Matrix:
-        result = [[value for value in row] for row in self.matrix]
+        result = self.__copy__()
 
         for row_idx, row in enumerate(other.matrix):
             for col_idx, value in enumerate(row):
-                result[row_idx][col_idx] += value
+                result.matrix[row_idx][col_idx] += value
 
-        return Matrix(result)
+        return result
 
     def __sub__(self, other: Matrix) -> Matrix:
-        result = [[value for value in row] for row in self.matrix]
+        result = self.__copy__()
 
         for row_idx, row in enumerate(other.matrix):
             for col_idx, value in enumerate(row):
-                result[row_idx][col_idx] -= value
+                result.matrix[row_idx][col_idx] -= value
 
-        return Matrix(result)
+        return result
 
     def __mul__(self, other: Matrix) -> Matrix:
-        result = [[value for value in row] for row in self.matrix]
+        result = self.__copy__()
 
         for row_idx, row in enumerate(other.matrix):
             for col_idx, value in enumerate(row):
-                result[row_idx][col_idx] *= value
+                result.matrix[row_idx][col_idx] *= value
 
-        return Matrix(result)
+        return result
 
     def __matmul__(self, other: Matrix) -> Matrix:
         result = Matrix.full_of(self.num_rows, other.num_cols, 0)
@@ -53,13 +53,15 @@ class Matrix:
         if power == 0:
             return Matrix.identity(self.num_rows, self.num_cols)
 
-        result = Matrix([[value for value in row] for row in self.matrix])
+        result = self.__copy__()
 
         for _ in range(power - 1):
             result @= self
 
         return result
 
+    def __copy__(self) -> Matrix:
+        return Matrix(self.matrix)
 
     def __repr__(self) -> str:
         return f'{self.num_rows} x {self.num_cols} matrix:\n' \
