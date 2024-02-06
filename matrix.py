@@ -49,6 +49,18 @@ class Matrix:
 
         return result
 
+    def __pow__(self, power: int) -> Matrix:
+        if power == 0:
+            return Matrix.identity(self.num_rows, self.num_cols)
+
+        result = Matrix([[value for value in row] for row in self.matrix])
+
+        for _ in range(power - 1):
+            result @= self
+
+        return result
+
+
     def __repr__(self) -> str:
         return f'{self.num_rows} x {self.num_cols} matrix:\n' \
             + '\n'.join([str(row) for row in self.matrix])
