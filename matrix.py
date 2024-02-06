@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Sequence
+from typing import Any, Sequence
 
 
 class Matrix:
@@ -30,3 +30,18 @@ class Matrix:
     def __repr__(self) -> str:
         return f'{self.num_rows} x {self.num_cols} matrix:\n' \
             + '\n'.join([str(row) for row in self.matrix])
+
+    @classmethod
+    def identity(cls, num_rows: int, num_cols: int) -> Matrix:
+        matrix = [[0 for _ in range(num_cols)] for _ in range(num_rows)]
+
+        for idx in range(min(num_rows, num_cols)):
+            matrix[idx][idx] = 1
+
+        return cls(matrix)
+
+    @classmethod
+    def full_of(cls, num_rows: int, num_cols: int, value: Any) -> Matrix:
+        matrix = [[value for _ in range(num_cols)] for _ in range(num_rows)]
+
+        return cls(matrix)
