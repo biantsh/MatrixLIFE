@@ -60,6 +60,9 @@ class Matrix:
 
         return result
 
+    def __eq__(self, other: Matrix) -> bool:
+        return self.matrix.__eq__(other.matrix)
+
     def __copy__(self) -> Matrix:
         return Matrix(self.matrix)
 
@@ -79,3 +82,13 @@ class Matrix:
             matrix.matrix[idx][idx] = 1
 
         return matrix
+
+    def transpose(self) -> Matrix:
+        transposed = [[self.matrix[row_idx][col_idx]
+                       for row_idx in range(self.num_rows)]
+                      for col_idx in range(self.num_cols)]
+
+        return Matrix(transposed)
+
+    def is_symmetric(self) -> bool:
+        return self == self.transpose()
