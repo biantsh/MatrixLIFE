@@ -40,6 +40,16 @@ class Matrix:
 
         return result
 
+    def __truediv__(self, other: Matrix) -> Matrix:
+        assert_same_shape(self, other)
+        result = self.__copy__()
+
+        for row_idx, row in enumerate(other.matrix):
+            for col_idx, value in enumerate(row):
+                result.matrix[row_idx][col_idx] /= value
+
+        return result
+
     def __matmul__(self, other: Matrix) -> Matrix:
         assert_conformability(self, other)
         result = Matrix.full_of(self.num_rows, other.num_cols, 0)
