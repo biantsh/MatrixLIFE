@@ -69,6 +69,12 @@ You can use the `+-*/` operators to perform basic element-wise operations such a
 [-1, -2]
 [-3, -4]
 [-5, -6]
+
+>>> matrix_1 / matrix_2
+3 x 2 matrix:
+[-1.0, -2.0]
+[-3.0, -4.0]
+[-5.0, -6.0]
 ```
 
 ## Matrix multiplication
