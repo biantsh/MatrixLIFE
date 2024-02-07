@@ -6,7 +6,7 @@ def setup() -> None:
         packages=setuptools.find_packages(),
         name='matrix-life',
         author='biantsh',
-        version=0.1,
+        version=0.2,
     )
 
 
